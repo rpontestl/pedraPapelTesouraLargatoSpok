@@ -14,7 +14,11 @@ class Cliente:
 
     def SendMove(self,move):
         with socket(AF_INET, SOCK_STREAM)  as s:
-            s.connect((self.HOST, self.PORT))
-            s.sendall(move)
-            data = int(s.recv(1024))
-            return data
+            s.connect((self.HOST, self.PORT))  
+            s.sendall(move.encode("utf-8"))
+            
+            data = s
+            print(s)
+            ##return data
+            
+            
