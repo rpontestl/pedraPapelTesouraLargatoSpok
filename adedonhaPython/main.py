@@ -17,10 +17,9 @@ if __name__ == '__main__':
         nAleatorio = random.randrange(0,4)
         jogada = moves[nAleatorio]
         print(jogada)
-        opponent.SendMove(str(nAleatorio))
-        ##print(nOpponent)
-        """"
-        ans = moves[int(nOpponent)]
+        nOpponent = opponent.SendMove(str(nAleatorio))
+        
+        ans = moves[nOpponent]
         partida = Competicao(jogada,ans)
         resultado = partida.compara()
         
@@ -29,7 +28,7 @@ if __name__ == '__main__':
         banco.printaBD()
         print('\n')
         banco.insereResultado(str(i),jogada,ans,resultado)
-        """
+        
         option = 0
 
         while not (option == 1 or option == 2):
@@ -39,6 +38,7 @@ if __name__ == '__main__':
         if option == 2:
             termino  = True
             opponent.SendMove("5")
+            print("Saindo do Jogo")
         i = i + 1 
 
     banco.deletaBD()

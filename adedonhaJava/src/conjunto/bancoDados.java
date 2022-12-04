@@ -35,9 +35,6 @@ public class bancoDados {
         preparedStmt.setString  (4, result);
         preparedStmt.execute();
     }
-    public void recuperaBD() throws SQLException {
-
-    }
     public void printaBD() throws SQLException{
         ResultSet rs = statement.executeQuery("select * from javaRounds;");
 

@@ -33,7 +33,7 @@ public class Servidor {
 
     }
 
-    public void verificaConexao(int posicao) throws IOException {
+    public void verificaConexao(int posicao) throws IOException, SQLException {
 
         Socket cliente = servidor.accept();
         BufferedReader br = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
@@ -45,24 +45,24 @@ public class Servidor {
 
         Random gerador = new Random();
         int nAleatorio = gerador.nextInt(5);
-        out.writeUTF(Integer.toString(nAleatorio));
+        out.writeBytes(Integer.toString(nAleatorio));
 
         String jogada = nomes[nAleatorio];
 
         String msg = br.readLine();
-        if (msg.equals("5")) return;
-        System.out.printf("\nMensagem recebida %s - %s\n",msg,nomes[Integer.parseInt(msg)]);
-        /*String ans = nomes[Integer.parseInt(msg)];
+        if (msg.equals("5")){
+            System.out.print("O oponente desistiu do jogo");
+            return;
+        }
+        String ans = nomes[Integer.parseInt(msg)];
         Jogar partida = new Jogar(jogada,ans);
         String resultado = partida.compara();
         System.out.printf("\nRodada atual\n-------------------------------------------\nMe: %s Opponent: %s result: %s\n",jogada,ans,resultado);
         System.out.print("Histórico\n");
         banco.printaBD();
-        banco.insereResultado(posicao,jogada,ans,resultado);
-        */
+        banco.insereResultado(Integer.toString(posicao),jogada,ans,resultado);
 
         cliente.close();
-
     }
     public void printarHistorico() throws SQLException {
         banco.printaBD();
@@ -71,16 +71,5 @@ public class Servidor {
         banco.deletaBD();
         s.close();
         servidor.close();
-    }/*
-    public int sendAmove() throws IOException {
-        System.out.print("Entrou");
-        Random gerador = new Random();
-        int nAleatorio = gerador.nextInt(5);
-        String msg = Integer.toString(nAleatorio);
-        System.out.println(msg);
-        ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
-        saida.writeUTF(msg);
-        return nAleatorio;
-    }*/
-
+    }
 }

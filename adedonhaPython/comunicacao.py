@@ -17,7 +17,9 @@ class Cliente:
             s.connect((self.HOST, self.PORT))  
             s.sendall(move.encode("utf-8"))
             data = s.recv(1024)
-            print(data.decode("utf"))
-            ##return data
+        
+            n = int(data.decode("utf-8"))
+            print(n)
+            return n
             
             
