@@ -45,15 +45,18 @@ public class Servidor {
 
         Random gerador = new Random();
         int nAleatorio = gerador.nextInt(5);
-        out.writeBytes(Integer.toString(nAleatorio));
+
 
         String jogada = nomes[nAleatorio];
-
+        out.writeBytes(Integer.toString(nAleatorio));
         String msg = br.readLine();
         if (msg.equals("5")){
-            System.out.print("O oponente desistiu do jogo");
+            System.out.print("O oponente desistiu do jogo\n");
+            cliente.close();
+            encerraServer();
             return;
         }
+
         String ans = nomes[Integer.parseInt(msg)];
         Jogar partida = new Jogar(jogada,ans);
         String resultado = partida.compara();

@@ -17,7 +17,7 @@ if __name__ == '__main__':
         nAleatorio = random.randrange(0,4)
         jogada = moves[nAleatorio]
         print(jogada)
-        nOpponent = opponent.SendMove(str(nAleatorio))
+        nOpponent = int(opponent.SendMove(str(nAleatorio)))
         
         ans = moves[nOpponent]
         partida = Competicao(jogada,ans)
@@ -38,7 +38,7 @@ if __name__ == '__main__':
         if option == 2:
             termino  = True
             opponent.SendMove("5")
-            print("Saindo do Jogo")
+            print("Você saiu do jogo")
         i = i + 1 
 
     banco.deletaBD()

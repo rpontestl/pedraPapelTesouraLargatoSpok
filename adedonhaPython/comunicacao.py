@@ -18,8 +18,8 @@ class Cliente:
             s.sendall(move.encode("utf-8"))
             data = s.recv(1024)
         
-            n = int(data.decode("utf-8"))
-            print(n)
-            return n
+            data = data.decode("utf-8")
+            
+            return data
             
             
