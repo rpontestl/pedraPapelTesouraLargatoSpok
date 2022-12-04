@@ -53,5 +53,11 @@ if __name__ == '__main__':
     else:
         print('Java player win\n')
 
+    #gera graficos comparativos
+    banco.graficoBarras("Vitoria","Me")
+    banco.graficoBarras("Derrota","Me")
+    banco.graficoBarras("Vitoria","He")
+    banco.graficoBarras("Derrota","He")
+
     #deleta o banco de dados
     banco.deletaBD()
