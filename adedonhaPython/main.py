@@ -1,7 +1,6 @@
 from bancoDados import DataBase
 from comunicacao import Cliente
 from jogar import Competicao
-import random
 
 if __name__ == '__main__':
     IP = input('Qual o IP do Oponente? ')
