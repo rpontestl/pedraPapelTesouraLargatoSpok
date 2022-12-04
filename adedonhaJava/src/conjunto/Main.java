@@ -12,16 +12,25 @@ public class Main {
         System.out.print("Defina o número da porta: ");
         port = input.nextLine();
         Servidor servidor = new Servidor(Integer.parseInt(port));
-        String opcao = "0";
         int i = 1;
+        int nVitoria = 0 ,nDerrota = 0;
+        String result ="";
         do{
             System.out.print("Aguardando jogada de oponente...\n");
-            servidor.verificaConexao(i);
-            servidor.printarHistorico();
-            System.out.print("Sair do jogo tecle [e]: ");
-            opcao = input.nextLine();
+            result = servidor.verificaConexao(i);
             i+=1;
-        }while(!opcao.equals("e"));
+            if(result.equals("Vitoria")) nVitoria+=1;
+            if(result.equals("Derrota")) nDerrota+=1;
+            System.out.printf("\nPlacar: %s X %s\n",nVitoria,nDerrota);
+        }while(i<=15);
+
+        System.out.print("\nFim de jogo\n");
+        if (nVitoria < nDerrota)
+            System.out.print("Python player win\n");
+        else if(nVitoria == nDerrota)
+            System.out.print("Empate\n");
+        else
+            System.out.print("Java player win");
 
         servidor.encerraServer();
         System.out.println("Jogo Concluído!");

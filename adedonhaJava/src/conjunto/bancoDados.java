@@ -39,12 +39,12 @@ public class bancoDados {
         ResultSet rs = statement.executeQuery("select * from javaRounds;");
 
         while(rs.next()){
-            System.out.printf("Rodada: %s - Me: %s - Oponente: %s - Resultado: %s",rs.getString("Rodada"),rs.getString("Me"),rs.getString("He"),rs.getString("Result"));
+            System.out.printf("Rodada: %s - Me: %s - Oponente: %s - Resultado: %s\n",rs.getString("Rodada"),rs.getString("Me"),rs.getString("He"),rs.getString("Result"));
         }
     }
     public void deletaBD() throws SQLException {
-        PreparedStatement preparedStmt = con.prepareStatement("truncate javaRounds");
-        preparedStmt.execute();
+        statement.executeUpdate("TRUNCATE javaRounds");
+
     }
 
 }

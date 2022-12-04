@@ -33,7 +33,7 @@ public class Servidor {
 
     }
 
-    public void verificaConexao(int posicao) throws IOException, SQLException {
+    public String verificaConexao(int posicao) throws IOException, SQLException {
 
         Socket cliente = servidor.accept();
         BufferedReader br = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
@@ -46,30 +46,22 @@ public class Servidor {
         Random gerador = new Random();
         int nAleatorio = gerador.nextInt(5);
 
-
         String jogada = nomes[nAleatorio];
         out.writeBytes(Integer.toString(nAleatorio));
         String msg = br.readLine();
-        if (msg.equals("5")){
-            System.out.print("O oponente desistiu do jogo\n");
-            cliente.close();
-            encerraServer();
-            return;
-        }
 
         String ans = nomes[Integer.parseInt(msg)];
         Jogar partida = new Jogar(jogada,ans);
         String resultado = partida.compara();
-        System.out.printf("\nRodada atual\n-------------------------------------------\nMe: %s Opponent: %s result: %s\n",jogada,ans,resultado);
+        System.out.printf("\nRodada atual: %s\n-------------------------------------------\nMe: %s Opponent: %s result: %s\n", posicao,jogada,ans,resultado);
         System.out.print("Histórico\n");
         banco.printaBD();
         banco.insereResultado(Integer.toString(posicao),jogada,ans,resultado);
 
         cliente.close();
+        return resultado;
     }
-    public void printarHistorico() throws SQLException {
-        banco.printaBD();
-    }
+
     public void encerraServer() throws IOException, SQLException {
         banco.deletaBD();
         s.close();

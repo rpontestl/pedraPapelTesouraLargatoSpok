@@ -9,11 +9,11 @@ if __name__ == '__main__':
     opponent = Cliente(IP,int(PORT))
     banco = DataBase()
 
-    termino = False
     i = 1
     moves = ['pedra','spock','papel','lagarto','tesoura']
-
-    while termino is not True:
+    nDerrota = 0
+    nVitoria = 0
+    while i <= 15:
         nAleatorio = random.randrange(0,4)
         jogada = moves[nAleatorio]
         print(jogada)
@@ -22,23 +22,24 @@ if __name__ == '__main__':
         ans = moves[nOpponent]
         partida = Competicao(jogada,ans)
         resultado = partida.compara()
-        
-        print('\nRodada atual\n-------------------------------------------\nMe: {0} Opponent: {1} result: {2}\n'.format(jogada,ans,resultado))
+        if resultado == 'Vitoria':
+            nVitoria+=1
+        if resultado == 'Derrota':
+            nDerrota+=1 
+
+        print('\nRodada atual:{3}\n-------------------------------------------\nMe: {0} Opponent: {1} result: {2}\n'.format(jogada,ans,resultado,i))
         print('Histórico\n')
         banco.printaBD()
         print('\n')
         banco.insereResultado(str(i),jogada,ans,resultado)
-        
-        option = 0
-
-        while not (option == 1 or option == 2):
-            option = int(input('deseja jogar mais uma rodada([1]Sim [2]Não)? '))
-            
-        
-        if option == 2:
-            termino  = True
-            opponent.SendMove("5")
-            print("Você saiu do jogo")
         i = i + 1 
-
+        print('\nPlacar: {0} X {1}\n'.format(nVitoria,nDerrota))
+    
+    print("\nFim de jogo\n")
+    if nVitoria > nDerrota:
+        print('Python player win\n')
+    elif nVitoria == nDerrota:
+        print('Empate\n')
+    else:
+        print('Java player win\n')
     banco.deletaBD()
