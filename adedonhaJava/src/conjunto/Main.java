@@ -30,7 +30,7 @@ public class Main {
         else if(nVitoria == nDerrota)
             System.out.print("Empate\n");
         else
-            System.out.print("Java player win");
+            System.out.print("\nJava player win\n");
 
         servidor.encerraServer();
         System.out.println("Jogo Concluído!");

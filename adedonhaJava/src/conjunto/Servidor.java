@@ -17,7 +17,6 @@ public class Servidor {
     ServerSocket servidor;
 
     bancoDados banco;
-    Scanner s;
     String[] nomes = new String[5];
     public Servidor(int port) throws IOException, SQLException {
 
@@ -64,7 +63,6 @@ public class Servidor {
 
     public void encerraServer() throws IOException, SQLException {
         banco.deletaBD();
-        s.close();
         servidor.close();
     }
 }
