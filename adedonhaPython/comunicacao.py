@@ -16,9 +16,8 @@ class Cliente:
         with socket(AF_INET, SOCK_STREAM)  as s:
             s.connect((self.HOST, self.PORT))  
             s.sendall(move.encode("utf-8"))
-            
-            data = s
-            print(s)
+            data = s.recv(1024)
+            print(data.decode("utf"))
             ##return data
             
             

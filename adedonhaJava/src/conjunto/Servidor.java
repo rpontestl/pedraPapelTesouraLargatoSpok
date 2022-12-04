@@ -33,27 +33,34 @@ public class Servidor {
 
     }
 
-    public void verificaConexao() throws IOException {
-        Socket cliente = servidor.accept();
-        System.out.println("Cliente " +
-                cliente.getInetAddress().getHostAddress() + " adicionado."
-        );
-        s = new Scanner(cliente.getInputStream());
-        while (s.hasNextLine()) {
-            //String jogada = nomes[sendAmove()];
+    public void verificaConexao(int posicao) throws IOException {
 
-            String msg = s.nextLine();
-            if (msg.equals("5")) break;
-            System.out.printf("\nMensagem recebida %s - %s\n",msg,nomes[Integer.parseInt(msg)]);
-            /*String ans = nomes[Integer.parseInt(msg)];
-            Jogar partida = new Jogar(jogada,ans);
-            String resultado = partida.compara();
-            System.out.printf("\nRodada atual\n-------------------------------------------\nMe: %s Opponent: %s result: %s\n",jogada,ans,resultado);
-            System.out.print("Histórico\n");
-            banco.printaBD();
-            banco.insereResultado(Integer.toString(i),jogada,ans,resultado);
-            i=i+1;*/
-        }
+        Socket cliente = servidor.accept();
+        BufferedReader br = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
+        System.out.println("Cliente " + cliente.getInetAddress().getHostAddress() + " adicionado.");
+
+        OutputStream outToServer = cliente.getOutputStream();
+        DataOutputStream out = new DataOutputStream(outToServer);
+
+
+        Random gerador = new Random();
+        int nAleatorio = gerador.nextInt(5);
+        out.writeUTF(Integer.toString(nAleatorio));
+
+        String jogada = nomes[nAleatorio];
+
+        String msg = br.readLine();
+        if (msg.equals("5")) return;
+        System.out.printf("\nMensagem recebida %s - %s\n",msg,nomes[Integer.parseInt(msg)]);
+        /*String ans = nomes[Integer.parseInt(msg)];
+        Jogar partida = new Jogar(jogada,ans);
+        String resultado = partida.compara();
+        System.out.printf("\nRodada atual\n-------------------------------------------\nMe: %s Opponent: %s result: %s\n",jogada,ans,resultado);
+        System.out.print("Histórico\n");
+        banco.printaBD();
+        banco.insereResultado(posicao,jogada,ans,resultado);
+        */
+
         cliente.close();
 
     }

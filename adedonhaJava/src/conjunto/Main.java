@@ -13,12 +13,14 @@ public class Main {
         port = input.nextLine();
         Servidor servidor = new Servidor(Integer.parseInt(port));
         String opcao = "0";
+        int i = 1;
         do{
             System.out.print("Aguardando jogada de oponente...\n");
-            servidor.verificaConexao();
+            servidor.verificaConexao(i);
             servidor.printarHistorico();
             System.out.print("Sair do jogo tecle [e]: ");
             opcao = input.nextLine();
+            i+=1;
         }while(!opcao.equals("e"));
 
         servidor.encerraServer();
